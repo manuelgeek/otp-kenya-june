@@ -1,5 +1,5 @@
 "Our greatest glory is not in never falling, but in rising every time we fall"
-~ Consucious
+~ Confucious
 
 
 Cogito, ergo sum, translated into English as "I think, therefore I am"

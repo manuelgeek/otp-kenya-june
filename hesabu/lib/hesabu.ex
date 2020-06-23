@@ -2,17 +2,26 @@ defmodule Hesabu do
   @moduledoc """
   Documentation for `Hesabu`.
   """
+  alias Hesabu.Boundary
 
-  @doc """
-  Hello world.
+  def start(initial_count) do
+    Boundary.start(initial_count)
+  end
 
-  ## Examples
+  def inc(counter) do
+    send(counter, :inc)
+  end
 
-      iex> Hesabu.hello()
-      :world
+  def dec(counter) do
+    send(counter, :dec)
+  end
 
-  """
-  def hello do
-    :world
+  def count(counter) do
+    send(counter, {:count, self()})
+
+    receive do
+      message ->
+        message
+    end
   end
 end

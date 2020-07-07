@@ -2,26 +2,22 @@ defmodule Hesabu do
   @moduledoc """
   Documentation for `Hesabu`.
   """
-  alias Hesabu.Boundary
+  alias Hesabu.Server
 
   def start(initial_count) do
-    Boundary.start(initial_count)
+    {:ok, pid} = GenServer.start_link(Server, initial_count)
+    pid
   end
 
   def inc(counter) do
-    send(counter, :inc)
+    GenServer.cast(counter, :inc)
   end
 
   def dec(counter) do
-    send(counter, :dec)
+    GenServer.cast(counter, :dec)
   end
 
   def count(counter) do
-    send(counter, {:count, self()})
-
-    receive do
-      message ->
-        message
-    end
+    GenServer.call(counter, :count)
   end
 end

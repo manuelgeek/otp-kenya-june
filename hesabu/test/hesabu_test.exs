@@ -1,8 +1,19 @@
 defmodule HesabuTest do
   use ExUnit.Case
-  doctest Hesabu
+  import Hesabu.Core
 
-  test "greets the world" do
-    assert Hesabu.hello() == :world
+  test "one step forward and two steps back" do
+    new()
+    |> inc
+    |> assert_value(1)
+    |> inc
+    |> assert_value(2)
+    |> dec
+    |> assert_value(1)
+  end
+  
+  defp assert_value(actual, expected) do
+    assert actual == expected
+    actual
   end
 end

@@ -4,7 +4,32 @@ defmodule Kumbuka.Eraser do
   def new(text, no_of_steps) do
     __struct__(text: text, steps: build_steps(text, no_of_steps))
   end
-  
+
+  def eraser(%__MODULE__{text: text, steps: [head | tail]} = passage) do
+    if Enum.count(passage.steps) > 1 do
+      %__MODULE__{text: delete_chars(text, head), steps: tail}
+      |> eraser()
+    else
+      %__MODULE__{text: delete_chars(text, head), steps: tail}
+    end
+  end
+
+  defp delete_chars(text, steps) do
+    text
+    |> String.graphemes()
+    |> Enum.with_index(1)
+    |> Enum.map(fn tuple -> replace(tuple, steps) end)
+    |> Enum.join()
+  end
+
+  defp replace({char, index}, indexes) do
+    if index in indexes do
+      "_"
+    else
+      char
+    end
+  end
+
   defp build_steps(text, no_of_steps) do
     size = String.length(text)
 

@@ -24,8 +24,6 @@ defmodule Kumbuka.Eraser do
       else
         "_"
       end
-
-      
     else
       char
     end

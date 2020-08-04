@@ -19,7 +19,13 @@ defmodule Kumbuka.Eraser do
 
   defp replace({char, index}, indexes) do
     if index in indexes do
-      "_"
+      if Regex.match?(~r/[.!? ",\r\n]/, char) do
+        char
+      else
+        "_"
+      end
+
+      
     else
       char
     end

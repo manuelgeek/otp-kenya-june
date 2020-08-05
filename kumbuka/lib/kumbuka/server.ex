@@ -12,8 +12,8 @@ defmodule Kumbuka.Server do
     GenServer.call(pid, :get)
   end
 
-  def erase(pid, passage) do
-    GenServer.call(pid, {:erase, passage})
+  def erase(pid) do
+    GenServer.call(pid, :erase)
   end
 
   def flush(name) do
@@ -30,9 +30,9 @@ defmodule Kumbuka.Server do
     {:noreply, %{}}
   end
 
-  def handle_call({:erase, passage}, _from, state) do
-    reduced = Eraser.eraser(passage)
-    {:reply, reduced, Map.put(state, reduced, Enum.count(passage.steps))}
+  def handle_call(:erase, _from, state) do
+    reduced = Eraser.eraser(state)
+    {:reply, reduced.text, reduced}
   end
 
   def handle_call(:get, _from, state) do

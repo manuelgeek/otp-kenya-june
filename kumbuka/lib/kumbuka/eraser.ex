@@ -5,25 +5,25 @@ defmodule Kumbuka.Eraser do
     __struct__(text: text, steps: build_steps(text, no_of_steps))
   end
 
-  def eraser(%__MODULE__{text: text, steps: [head | tail]} = passage) do
-    if Enum.count(passage.steps) > 1 do
-      %__MODULE__{text: delete_chars(text, head), steps: tail}
-      |> eraser()
-    else
-      %__MODULE__{text: delete_chars(text, head), steps: tail}
-    end
+  def erase(%__MODULE__{steps: []} = passage) do
+    passage
   end
 
-  defp delete_chars(text, steps) do
+  def erase(%__MODULE__{text: text, steps: [step | steps]} = passage) do
+    %{passage | steps: steps, text: delete_chars(text, step)}
+    |> erase()
+  end
+
+  def delete_chars(text, step) do
     text
     |> String.graphemes()
     |> Enum.with_index(1)
-    |> Enum.map(fn tuple -> replace(tuple, steps) end)
+    |> Enum.map(fn tuple -> replace(tuple, step) end)
     |> Enum.join()
   end
 
-  defp replace({char, index}, indexes) do
-    if index in indexes do
+  defp replace({char, index}, indices) do
+    if index in indices do
       "_"
     else
       char

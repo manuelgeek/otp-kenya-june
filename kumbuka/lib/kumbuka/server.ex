@@ -2,26 +2,8 @@ defmodule Kumbuka.Server do
   alias Kumbuka.Eraser
   use GenServer
 
-  def start_link(text, steps) do
-    GenServer.start_link(__MODULE__, Eraser.new(text, steps))
-  end
-
-  def stop(pid), do: GenServer.cast(pid, :stop)
-
-  def get(pid) do
-    GenServer.call(pid, :get)
-  end
-
-  def erase(pid) do
-    GenServer.call(pid, :erase)
-  end
-
-  def flush(name) do
-    GenServer.cast(name, :flush)
-  end
-
-  def init(args) do
-    {:ok, args}
+  def init({text, steps}) do
+    {:ok, Eraser.new(text, steps)}
   end
 
   def handle_cast(:stop, state), do: {:stop, :normal, state}

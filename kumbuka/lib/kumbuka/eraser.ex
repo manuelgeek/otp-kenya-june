@@ -9,11 +9,11 @@ defmodule Kumbuka.Eraser do
     %__MODULE__{passage | text: delete_chars(text, head), steps: tail}
   end
 
-  defp delete_chars(text, steps) do
+  def delete_chars(text, step) do
     text
     |> String.graphemes()
     |> Enum.with_index(1)
-    |> Enum.map(fn tuple -> replace(tuple, steps) end)
+    |> Enum.map(fn tuple -> replace(tuple, step) end)
     |> Enum.join()
   end
 

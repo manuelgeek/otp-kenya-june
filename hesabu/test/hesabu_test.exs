@@ -11,7 +11,7 @@ defmodule HesabuTest do
     |> dec
     |> assert_value(1)
   end
-  
+
   defp assert_value(actual, expected) do
     assert actual == expected
     actual

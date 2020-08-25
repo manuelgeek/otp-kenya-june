@@ -18,6 +18,6 @@ defmodule Kumbuka.Server do
   end
 
   def handle_call(:get, _from, state) do
-    {:reply, state, state}
+    {:reply, state.text, state}
   end
 end

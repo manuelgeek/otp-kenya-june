@@ -5,17 +5,21 @@ defmodule Kumbuka do
   alias Kumbuka.Server
 
   def start_link(text, steps) do
-    GenServer.start_link(Server, {text, steps})
+    {:ok, server} = GenServer.start_link(Server, {text, steps})
+    print_text(server)
+    server
   end
 
   def stop(pid), do: GenServer.cast(pid, :stop)
 
-  def get(pid) do
-    GenServer.call(pid, :get)
+  def print_text(server) do
+    text = GenServer.call(server, :get)
+    IO.puts text
   end
 
-  def erase(pid) do
-    GenServer.call(pid, :erase)
+  def erase(server) do
+    GenServer.call(server, :erase)
+    print_text(server)
   end
 
   def flush(name) do

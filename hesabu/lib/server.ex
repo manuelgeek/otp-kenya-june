@@ -3,8 +3,8 @@ defmodule Hesabu.Server do
 
   alias Hesabu.Core
 
-  def start_link(initial_count) do
-    GenServer.start_link(__MODULE__, initial_count, name: __MODULE__)
+  def start_link(initial_count, name) do
+    GenServer.start_link(__MODULE__, initial_count, name: name)
   end
 
   def init(count) do
@@ -22,5 +22,9 @@ defmodule Hesabu.Server do
 
   def handle_call(:count, _from, count) do
     {:reply, count, count}
+  end
+
+  def child_spec({value, name}) do
+    %{id: name, start: {Hesabu.Server, :start_link, [value, name]}}
   end
 end

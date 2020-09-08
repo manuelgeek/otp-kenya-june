@@ -3,7 +3,12 @@ defmodule Hesabu.Server do
 
   alias Hesabu.Core
 
+  def start_link(initial_count) do
+    GenServer.start_link(__MODULE__, initial_count, name: __MODULE__)
+  end
+
   def init(count) do
+    IO.puts("starting.........")
     {:ok, count}
   end
 

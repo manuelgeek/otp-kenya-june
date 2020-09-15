@@ -8,7 +8,10 @@ defmodule Kumbuka.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Kumbuka.Worker.start_link(arg)
-      # {Kumbuka.Worker, arg}
+      {Kumbuka, {Wanjiku.text(), 4, :wanjiku}},
+      {Kumbuka, {Magak.text(), 3, :magak}},
+      {Kumbuka, {Frank.text(), 2, :frank}},
+      {Kumbuka, {Bruce.text(), 4, :bruce}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

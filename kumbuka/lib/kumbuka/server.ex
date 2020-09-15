@@ -3,6 +3,7 @@ defmodule Kumbuka.Server do
   use GenServer
 
   def init({text, steps}) do
+    IO.puts("starting.........")
     {:ok, Eraser.new(text, steps)}
   end
 

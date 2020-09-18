@@ -11,7 +11,8 @@ defmodule Kumbuka.Application do
       {Kumbuka, {Wanjiku.text(), 4, :wanjiku}},
       {Kumbuka, {Magak.text(), 3, :magak}},
       {Kumbuka, {Frank.text(), 2, :frank}},
-      {Kumbuka, {Bruce.text(), 4, :bruce}}
+      {Kumbuka, {Bruce.text(), 4, :bruce}},
+      {KumbukaServer, strategy: :one_for_one, name: KumbukaServer}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

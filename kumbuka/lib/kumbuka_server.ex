@@ -13,6 +13,6 @@ defmodule KumbukaServer do
   end
 
   def start_child({text, steps, name}) do
-    DynamicSupervisor.start_child(__MODULE__, {Kumbuka, {text, steps, name}})
+    DynamicSupervisor.start_child(__MODULE__, {Kumbuka.Server, {text, steps, name}})
   end
 end

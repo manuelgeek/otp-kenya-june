@@ -8,10 +8,9 @@ defmodule Kumbuka.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Kumbuka.Worker.start_link(arg)
-      {Kumbuka, {Wanjiku.text(), 4, :wanjiku}},
-      {Kumbuka, {Magak.text(), 3, :magak}},
-      {Kumbuka, {Frank.text(), 2, :frank}},
-      {Kumbuka, {Bruce.text(), 4, :bruce}},
+      # {Kumbuka.Worker, arg}
+      {Kumbuka.Server, {"this is a short string", 5, :pollet}},
+      {Kumbuka.Server, {"this is a slightly longer string", 5, :second}},
       {KumbukaServer, strategy: :one_for_one, name: KumbukaServer}
     ]
 
